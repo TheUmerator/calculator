@@ -10,12 +10,14 @@ body {
     align-items: center;
     width: 100vw;
     height: 100vh;
+
+    background-color: rgb(178, 182, 185);
 }
 .calc-body {
     width: 250px;
     height:300px;
 
-    border: 1px solid black;
+    border: 3px solid rgb(155, 146, 95);
 
     display: flex;
     flex-direction: column;
@@ -23,23 +25,47 @@ body {
     align-items: center;
 
     gap:10px;
+
+    background-color: #EEE6D1;
 }
 
 .screen-body {
     width: 200px;
     height: 50px;
-    border: 1px solid rgb(3, 77, 3);
+    border: 3px solid rgb(3, 77, 3);
     
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    background-color: green;
 }
 .screen {
     font-size: 30px;
+    font-family: monospace;
+    color: white;
+}
+
+.operator, .digit {
+    font-size: 20px;
+    font-family: Roboto;
+    font-weight: bold;
+}
+
+.operator {
+    background-color: rgb(249, 105, 35);
+    color: white;
+    font-family: monospace;
+    border-color: rgb(199, 84, 27);
+
+}
+.digit {
+    background-color: rgb(186, 196, 188);
+    border-color:rgb(178, 182, 185);
 }
 
 .button-body {
-    border: 1px solid rgb(74, 20, 175);
+    border: 3px solid rgb(196, 116, 63);
     width: 200px;
     height: 200px;
 
@@ -72,5 +98,7 @@ button {
     text-align: center;
     width: 45px;
     height: 45px;
+
+    
 }
 
