@@ -44,12 +44,31 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     align-content: center;
+
+  
 }
+  .button-body :nth-child(1) { order: 1; }
+  .button-body :nth-child(2) { order: 5; }
+  .button-body :nth-child(3) { order: 6; }
+  .button-body :nth-child(4) { order: 7; }
+  .button-body :nth-child(5) { order: 9; }
+  .button-body :nth-child(6) { order: 10; }
+  .button-body :nth-child(7) { order: 11; }
+  .button-body :nth-child(8) { order: 13; }
+  .button-body :nth-child(9) { order: 14; }
+  .button-body :nth-child(10) { order: 15; }
+  .button-body :nth-child(11) { order: 2; }
+  .button-body :nth-child(12) { order: 3; }
+  .button-body :nth-child(13) { order: 16; }
+  .button-body :nth-child(14) { order: 12; }
+  .button-body :nth-child(15) { order: 8; }
+  .button-body :nth-child(16) { order: 4; }
 
 button {
     text-align: center;
     width: 45px;
     height: 45px;
 }
+
