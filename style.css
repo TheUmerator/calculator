@@ -23,10 +23,17 @@ body {
     gap:10px;
 }
 
-.calc-screen {
+.screen-body {
     width: 200px;
     height: 50px;
     border: 1px solid rgb(3, 77, 3);
+    
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.screen {
+    font-size: 30px;
 }
 
 .button-body {
@@ -38,11 +45,11 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    align-content: flex-start;
+    align-content: center;
 }
 
 button {
     text-align: center;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
 }
