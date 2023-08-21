@@ -12,11 +12,6 @@ function multiply(a,b) {
 function divide(a,b) {
     return a/b;
 }
-/*
-    For now: Lets create a function that
-    takes what the user inputed and split it into
-    it's respective values
-*/
 function splitUp(){
     
 }
@@ -24,29 +19,33 @@ function operate(firstNum,operator,secondNum){
 
 }
 /*
-    FIRST WE NEED TO CONNECT THE BUTTON 'CLICK'
-    TO SEND THE DESIRED SELECTION
+INPUT TO-DO LIST:
+-Continious function execution
+-Connect numpad button to calculator button press
+-Create a running cancatenation of each 
+ numpad/button press
+-Display the running cancatenation on the screen
+ but break the cancatenation after operator press
+ (We'll figure it out later)
 
-    I CLICK '1'
-    IT CONSOLE LOGS 1;
+
+ CALCULATION TO-DO LIST:
+ -
+ -
+ -
+ -
+ -
+ -
 */
 
 
-
-
-// const numClick=document.querySelectorAll('button');
-// function displayKey(){
-//     const buttonClick=document.querySelector('button');
-//     console.log(buttonClick.textContent);
-// }
-// numClick.forEach(num=>num.addEventListener('click',()=>displayKey()))
 
 function displayToScreen(input) {
     const screen=document.querySelector('.screen');
     screen.textContent=input;
 }
 //location of numpad is 3
-addEventListener('keydown',(e)=>{if(e.location==3){displayToScreen(e.key)}});
+addEventListener('keydown',(e)=>{if(e.location==3)displayToScreen(e.key)});
 
 
 const buttons=document.querySelectorAll('button');
