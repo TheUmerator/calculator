@@ -34,9 +34,19 @@ function operate(firstNum,operator,secondNum){
 
 
 
-const numClick=document.querySelectorAll('button');
-function displayKey(){
-    const buttonClick=document.querySelector('button');
-    console.log(buttonClick.textContent);
+// const numClick=document.querySelectorAll('button');
+// function displayKey(){
+//     const buttonClick=document.querySelector('button');
+//     console.log(buttonClick.textContent);
+// }
+// numClick.forEach(num=>num.addEventListener('click',()=>displayKey()))
+
+function displayToScreen(input) {
+    const screen=document.querySelector('.screen');
+    screen.textContent=input;
 }
-numClick.forEach(num=>num.addEventListener('click',()=>displayKey()))
+
+const buttons=document.querySelectorAll('button');
+buttons.forEach(button=>{
+    button.addEventListener("click",()=>displayToScreen(button.textContent)) //main functions go here
+})
