@@ -23,3 +23,20 @@ function splitUp(){
 function operate(firstNum,operator,secondNum){
 
 }
+/*
+    FIRST WE NEED TO CONNECT THE BUTTON 'CLICK'
+    TO SEND THE DESIRED SELECTION
+
+    I CLICK '1'
+    IT CONSOLE LOGS 1;
+*/
+
+
+
+
+const numClick=document.querySelectorAll('button');
+function displayKey(){
+    const buttonClick=document.querySelector('button');
+    console.log(buttonClick.textContent);
+}
+numClick.forEach(num=>num.addEventListener('click',()=>displayKey()))
