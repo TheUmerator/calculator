@@ -45,6 +45,9 @@ function displayToScreen(input) {
     const screen=document.querySelector('.screen');
     screen.textContent=input;
 }
+//location of numpad is 3
+addEventListener('keydown',(e)=>{if(e.location==3){displayToScreen(e.key)}});
+
 
 const buttons=document.querySelectorAll('button');
 buttons.forEach(button=>{
