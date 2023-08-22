@@ -40,15 +40,29 @@ INPUT TO-DO LIST:
 
 
 
-function displayToScreen(input) {
+
+let  userInput='';
+
+function displayToScreen(input,userInput) {
     const screen=document.querySelector('.screen');
-    screen.textContent=input;
+    
+    userInput=screen.textContent=userInput+input;
+    return userInput;    
 }
+
+
+// userInput=screen.textContent=userInput+input;
+// return userInput;
+
+// function displayToScreen(input) {
+//     const screen=document.querySelector('.screen');
+//     screen.textContent=input;
+// }
 //location of numpad is 3
-addEventListener('keydown',(e)=>{if(e.location==3)displayToScreen(e.key)});
+addEventListener('keydown',(e)=>{if(e.location==3)userInput=displayToScreen(e.key,userInput)});
 
 
 const buttons=document.querySelectorAll('button');
 buttons.forEach(button=>{
-    button.addEventListener("click",()=>displayToScreen(button.textContent)) //main functions go here
+    button.addEventListener("click",()=>userInput=displayToScreen(button.textContent,userInput)) //main functions go here
 })
