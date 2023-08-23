@@ -19,18 +19,27 @@ function operate(firstNum,operator,secondNum){
 
 }
 /*
+HMTL TO-DO LIST:
+-Add a backspace button
+-Add a clear button to clear all executions and return to blank state
+
 INPUT TO-DO LIST:
--Continious function execution
--Connect numpad button to calculator button press
--Create a running cancatenation of each 
+-(DONE)Create a running cancatenation of each 
  numpad/button press
--Display the running cancatenation on the screen
- but break the cancatenation after operator press
+-(DONE)Display the running cancatenation on the screen 
+
+
+-Connect numpad button to calculator button press
+
+-Convert userInput into firstNum,secondNum,operator
+
+-but break the cancatenation after operator press
  (We'll figure it out later)
 
 
  CALCULATION TO-DO LIST:
- -
+-Continious function execution
+
  -
  -
  -
@@ -59,7 +68,16 @@ function displayToScreen(input,userInput) {
 //     screen.textContent=input;
 // }
 //location of numpad is 3
-addEventListener('keydown',(e)=>{if(e.location==3)userInput=displayToScreen(e.key,userInput)});
+addEventListener('keydown',(e)=>{
+    if(e.location==3)
+    userInput=displayToScreen(e.key,userInput);
+
+    else if(e.key=='Backspace')
+    console.log(userInput.slice(1,userInput.length-1));
+    //console.log(userInput.length);
+    
+    //userInput.pop;
+});
 
 
 const buttons=document.querySelectorAll('button');
