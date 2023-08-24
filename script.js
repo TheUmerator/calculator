@@ -1,5 +1,7 @@
 let firstNum, secondNum, operator;
 
+let inputObj={firstNum:'',secondNum:'',operator:''};
+
 function add(a, b) {
     return a + b;
 }
@@ -17,28 +19,25 @@ function divide(a, b) {
 }
 
 function splitUp(typedInput) {
-
+let inputObj={};
     for (i = 0; i <= typedInput.length; i++) {
-        
-        if(typedInput[i]=='+'||typedInput[i]=='-'||typedInput[i]=='*'||typedInput[i]=='/')
-        {
-            firstNum=typedInput.substring(0,i);
-            secondNum=typedInput.substring(i+1,typedInput.length);
-            operator=typedInput[i];
+
+        // if (typedInput[i] == '+' || typedInput[i] == '-' || typedInput[i] == '*' || typedInput[i] == '/') {
+        //     firstNum = typedInput.substring(0, i);
+        //     secondNum = typedInput.substring(i + 1, typedInput.length);
+        //     operator = typedInput[i];
+        // }
+
+        if (typedInput[i] == '+' || typedInput[i] == '-' || typedInput[i] == '*' || typedInput[i] == '/') {
+            inputObj.firstNum = typedInput.substring(0, i);
+            inputObj.secondNum = typedInput.substring(i + 1, typedInput.length);
+            inputObj.operator = typedInput[i];
         }
     }
-
+return inputObj;
     console.log(firstNum);
     console.log(secondNum);
     console.log(operator);
-    /*
-        12+13
-        01234
-
-    -if typed input character is equal to a specific operator
-    -first num=typedNum[0] to typedNum[i]
-    -second num=typedNum[i] to typedNum[length-1] 
-    */
 }
 
 function operate(firstNum, operator, secondNum) {
@@ -65,7 +64,7 @@ INPUT TO-DO LIST:
 
  CALCULATION TO-DO LIST:
 -Continious function execution
--Split input into three variables
+-(DONE) Split input into three variables
 
  -
  -
@@ -79,10 +78,16 @@ INPUT TO-DO LIST:
 
 let userInput = '';
 
+
+
+
 function displayToScreen(input, userInput) {
     const screen = document.querySelector('.screen');
 
     if (input == 'Backspace')
+        input = '';
+
+    if (input == 'c')
         input = '';
 
     userInput = screen.textContent = userInput + input;
@@ -99,16 +104,19 @@ function displayToScreen(input, userInput) {
 // }
 //location of numpad is 3
 
-
+//NEED TO MAKE THIS ITS OWN FUNCTION FOR CLARITY LATER ON
 addEventListener('keydown', (e) => {
     if (e.location == 3)
         userInput = displayToScreen(e.key, userInput);
 
     else if (e.key == 'Backspace') {
         userInput = userInput.slice(0, userInput.length - 1)
-        console.log(userInput);
+        displayToScreen(e.key, userInput);
+    } else if (e.key == 'c') {
+        userInput = '';
         displayToScreen(e.key, userInput);
     }
+
     //console.log(userInput.length);
 
     //userInput.pop;
