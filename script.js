@@ -55,6 +55,9 @@ let  userInput='';
 function displayToScreen(input,userInput) {
     const screen=document.querySelector('.screen');
     
+    if(input=='Backspace')
+    input='';
+
     userInput=screen.textContent=userInput+input;
     return userInput;    
 }
@@ -72,8 +75,11 @@ addEventListener('keydown',(e)=>{
     if(e.location==3)
     userInput=displayToScreen(e.key,userInput);
 
-    else if(e.key=='Backspace')
-    console.log(userInput.slice(1,userInput.length-1));
+    else if(e.key=='Backspace'){
+    userInput=userInput.slice(0,userInput.length-1)
+    console.log(userInput);
+    displayToScreen(e.key,userInput);
+}
     //console.log(userInput.length);
     
     //userInput.pop;
