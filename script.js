@@ -1,6 +1,10 @@
 let firstNum, secondNum, operator;
 
-let inputObj={firstNum:'',secondNum:'',operator:''};
+let inputObj = {
+    firstNum: '',
+    secondNum: '',
+    operator: ''
+};
 
 function add(a, b) {
     return a + b;
@@ -19,7 +23,7 @@ function divide(a, b) {
 }
 
 function splitUp(typedInput) {
-let inputObj={};
+    let inputObj = {};
     for (i = 0; i <= typedInput.length; i++) {
 
         // if (typedInput[i] == '+' || typedInput[i] == '-' || typedInput[i] == '*' || typedInput[i] == '/') {
@@ -34,19 +38,22 @@ let inputObj={};
             inputObj.operator = typedInput[i];
         }
     }
-return inputObj;
+    return inputObj;
     console.log(firstNum);
     console.log(secondNum);
     console.log(operator);
 }
 
-function operate(firstNum, operator, secondNum) {
 
-}
 /*
 HMTL TO-DO LIST:
 -(DONE) Add a backspace button
 -Add a clear button to clear all executions and return to blank state
+
+CSS TO-DO LIST:
+-Connect numpad button to calculator button press
+-Fit the clear button and backspace button fit on the calculator
+
 
 INPUT TO-DO LIST:
 -(DONE)Create a running cancatenation of each 
@@ -54,7 +61,7 @@ INPUT TO-DO LIST:
 -(DONE)Display the running cancatenation on the screen 
 
 
--Connect numpad button to calculator button press
+
 
 -Convert userInput into firstNum,secondNum,operator
 
@@ -65,7 +72,7 @@ INPUT TO-DO LIST:
  CALCULATION TO-DO LIST:
 -Continious function execution
 -(DONE) Split input into three variables
-
+-(DONE)Create a function that assigns operations
  -
  -
  -
@@ -93,16 +100,69 @@ function displayToScreen(input, userInput) {
     userInput = screen.textContent = userInput + input;
     return userInput;
 }
+/*
+CALCULATION PSEUDOCODE:
+12+13
+
+-i press 12
+-then press plus
+-then press 13
+
+(A)
+then I either press enter(which will be mapped to equals)
+
+perform 12+13
+return sum on screen
+
+in case I press plus again
+
+firstNum equals 25
+operator equals +
+second num awaits
+return to (A) state
+
+*/
+function operate(userInput) {
+
+    switch (userInput.operator) {
+        case '+':
+            console.log(add(+userInput.firstNum, +userInput.secondNum));
+            break;
+        case '-':
+            console.log(subtract(+userInput.firstNum, +userInput.secondNum));
+
+            break;
+
+        case '*':
+            console.log(multiply(+userInput.firstNum, +userInput.secondNum));
+
+            break;
+
+        case '/':
+            console.log(divide(+userInput.firstNum, +userInput.secondNum));
+
+            break;
+
+    }
+
+}
+
+/*
+HANDOFF FUNCTION PSEUDOCODE:
+12+13+
+check if there is more than one operator in the line of text
+12+13+
+     ^
+if there is
+then perform the previous calculation first
+and then assign the result to the first number
+*/
 
 
-// userInput=screen.textContent=userInput+input;
-// return userInput;
+function handOff(userInput) {
 
-// function displayToScreen(input) {
-//     const screen=document.querySelector('.screen');
-//     screen.textContent=input;
-// }
-//location of numpad is 3
+}
+
 
 //NEED TO MAKE THIS ITS OWN FUNCTION FOR CLARITY LATER ON
 addEventListener('keydown', (e) => {
@@ -117,9 +177,9 @@ addEventListener('keydown', (e) => {
         displayToScreen(e.key, userInput);
     }
 
-    //console.log(userInput.length);
+    calcInput = splitUp(userInput);
 
-    //userInput.pop;
+    operate(calcInput);
 });
 
 
