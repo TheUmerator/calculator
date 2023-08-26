@@ -1,4 +1,4 @@
-let inputObj = {
+let splitInput = {
     firstNum: '',
     secondNum: '',
     operator: '',
@@ -21,28 +21,29 @@ function divide(a, b) {
     return a / b;
 }
 
-//takes in string, returns an object
+//takes in string('12+13'), 
+//returns an object
+/*EXAMPLE OF FUNCTION RETURN
+inputObj = {
+    firstNum: '12',
+    secondNum: '13',
+    operator: '+',
+    opCount: 1
+};
+
+*/
 function splitUp(typedInput) {
     let inputObj = {};
     for (i = 0; i <= typedInput.length; i++) {
-
-        // if (typedInput[i] == '+' || typedInput[i] == '-' || typedInput[i] == '*' || typedInput[i] == '/') {
-        //     firstNum = typedInput.substring(0, i);
-        //     secondNum = typedInput.substring(i + 1, typedInput.length);
-        //     operator = typedInput[i];
-        // }
-
         if (typedInput[i] == '+' || typedInput[i] == '-' || typedInput[i] == '*' || typedInput[i] == '/') {
             inputObj.opCount = inputObj.opCount + 1 || 1;
+            //^I used this method because inputObj.opCount++ did not work
             inputObj.firstNum = typedInput.substring(0, i);
             inputObj.secondNum = typedInput.substring(i + 1, typedInput.length);
             inputObj.operator = typedInput[i];
         }
     }
     return inputObj;
-    console.log(firstNum);
-    console.log(secondNum);
-    console.log(operator);
 }
 
 //triggers when opCount >=2. Sets it back to 1 while calculating the first
@@ -54,12 +55,9 @@ function splitUp(typedInput) {
 //should return the number obtained
 function firstCal(firstNum) {
     let firstObj;
-    let cal=0;
-    console.log('firstNum is'+firstNum);
 
     firstObj = splitUp(firstNum);
     cal=operate(firstObj);
-    console.log(firstNum+'is '+cal)
     return cal;
 }
 
@@ -78,11 +76,11 @@ INPUT TO-DO LIST:
 -(DONE)Create a running cancatenation of each 
  numpad/button press
 -(DONE)Display the running cancatenation on the screen 
+-(DONE)Convert userInput into firstNum,secondNum,operator
 
 
-
-
--Convert userInput into firstNum,secondNum,operator
+INPUT REDUNDANCY TO-DO LIST:
+-No more than one operator consecutively
 
 -but break the cancatenation after operator press
  (We'll figure it out later)
@@ -123,28 +121,8 @@ function displayToScreen(input, userInput) {
     userInput = screen.textContent = userInput + input;
     return userInput;
 }
-/*
-CALCULATION PSEUDOCODE:
-12+13
 
--i press 12
--then press plus
--then press 13
 
-(A)
-then I either press enter(which will be mapped to equals)
-
-perform 12+13
-return sum on screen
-
-in case I press plus again
-
-firstNum equals 25
-operator equals +
-second num awaits
-return to (A) state
-
-*/
 //currently, takes an object as input
 //RETURNS a number 
 function operate(userInput) {
@@ -169,20 +147,6 @@ function operate(userInput) {
 
 }
 
-/*
-HANDOFF FUNCTION PSEUDOCODE:
-12+13+
-check if there is more than one operator in the line of text
-12+13+
-     ^
-if there is
-then perform the previous calculation first
-and then assign the result to the first number
-*/
-
-
-
-
 //NEED TO MAKE THIS ITS OWN FUNCTION FOR CLARITY LATER ON
 
 addEventListener('keydown', (e) => {
@@ -198,24 +162,37 @@ addEventListener('keydown', (e) => {
     }
     //if enter key is pressed, then evaluate the equation
     //OR more than one operator is pressed, perform evaluation
-    if (e.key == 'Enter') {
-        console.log('ENTER PRESSED, EVALUATE');
+    // if (e.key == 'Enter') {
+    //     console.log('ENTER PRESSED, EVALUATE');
 
-    }
+    // }
+
+
     console.log(userInput);
-    console.log('split input');
     splitInput = splitUp(userInput);
+    console.log('split input');
     console.log(splitInput);
 
-    if (splitInput.opCount >= 2) {
-        splitInput.firstNum = firstCal(splitInput.firstNum);
-        console.log('splitInput.firstNum is now '+splitInput.firstNum)
-        splitInput.opCount=0;
+    if (splitInput.opCount >1) {
+        console.log("splitInput.firstNum is currently "+splitInput.firstNum);
+        
+        calcFirstNum=firstCal(splitInput.firstNum);
+        splitInput.firstNum = calcFirstNum;
 
-        operate(splitInput);
+        console.log('splitInput.firstNum is now '+splitInput.firstNum)
+        console.log('split input after firstCal');
+        console.log(splitInput);
+        
+        //splitInput.opCount--;
+        const count=1;
+        splitInput.opCount=count;
+        // splitInput.opCount = splitInput.opCount - 1 || 1;
+        //THIS IS WHERE IT IS NOT DECREMENTING
+
+        // operate(splitInput);
     }
     else
-    operate(splitInput);
+    console.log(userInput+' is '+operate(splitInput));
 
 
     
