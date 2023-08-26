@@ -1,9 +1,8 @@
-let firstNum, secondNum, operator;
-
 let inputObj = {
     firstNum: '',
     secondNum: '',
-    operator: ''
+    operator: '',
+    opCount: 0
 };
 
 function add(a, b) {
@@ -22,6 +21,7 @@ function divide(a, b) {
     return a / b;
 }
 
+//takes in string, returns an object
 function splitUp(typedInput) {
     let inputObj = {};
     for (i = 0; i <= typedInput.length; i++) {
@@ -33,6 +33,7 @@ function splitUp(typedInput) {
         // }
 
         if (typedInput[i] == '+' || typedInput[i] == '-' || typedInput[i] == '*' || typedInput[i] == '/') {
+            inputObj.opCount = inputObj.opCount + 1 || 1;
             inputObj.firstNum = typedInput.substring(0, i);
             inputObj.secondNum = typedInput.substring(i + 1, typedInput.length);
             inputObj.operator = typedInput[i];
@@ -42,6 +43,24 @@ function splitUp(typedInput) {
     console.log(firstNum);
     console.log(secondNum);
     console.log(operator);
+}
+
+//triggers when opCount >=2. Sets it back to 1 while calculating the first
+//expression
+//TAKES a string as input
+//splits it up into respective objects
+//evalutes the calculation
+//reset opcount to 1 and then
+//should return the number obtained
+function firstCal(firstNum) {
+    let firstObj;
+    let cal=0;
+    console.log('firstNum is'+firstNum);
+
+    firstObj = splitUp(firstNum);
+    cal=operate(firstObj);
+    console.log(firstNum+'is '+cal)
+    return cal;
 }
 
 
@@ -83,11 +102,13 @@ INPUT TO-DO LIST:
 // firstNum,secondNum,operator
 
 
+
+//the main variable manipulated by the eventlistern
 let userInput = '';
 
 
 
-
+//takes button press (input) and string(userInput) and returns nothing
 function displayToScreen(input, userInput) {
     const screen = document.querySelector('.screen');
 
@@ -97,6 +118,8 @@ function displayToScreen(input, userInput) {
     if (input == 'c')
         input = '';
 
+    if (input == 'Enter')
+        input = '';
     userInput = screen.textContent = userInput + input;
     return userInput;
 }
@@ -122,25 +145,24 @@ second num awaits
 return to (A) state
 
 */
+//currently, takes an object as input
+//RETURNS a number 
 function operate(userInput) {
 
     switch (userInput.operator) {
         case '+':
-            console.log(add(+userInput.firstNum, +userInput.secondNum));
+            return add(+userInput.firstNum, +userInput.secondNum);
             break;
         case '-':
-            console.log(subtract(+userInput.firstNum, +userInput.secondNum));
-
+            return subtract(+userInput.firstNum, +userInput.secondNum);
             break;
 
         case '*':
-            console.log(multiply(+userInput.firstNum, +userInput.secondNum));
-
+            return multiply(+userInput.firstNum, +userInput.secondNum);
             break;
 
         case '/':
-            console.log(divide(+userInput.firstNum, +userInput.secondNum));
-
+            return divide(+userInput.firstNum, +userInput.secondNum);
             break;
 
     }
@@ -159,14 +181,12 @@ and then assign the result to the first number
 */
 
 
-function handOff(userInput) {
-
-}
 
 
 //NEED TO MAKE THIS ITS OWN FUNCTION FOR CLARITY LATER ON
+
 addEventListener('keydown', (e) => {
-    if (e.location == 3)
+    if (e.location == 3) //3 is the code for the keypad location
         userInput = displayToScreen(e.key, userInput);
 
     else if (e.key == 'Backspace') {
@@ -176,10 +196,32 @@ addEventListener('keydown', (e) => {
         userInput = '';
         displayToScreen(e.key, userInput);
     }
+    //if enter key is pressed, then evaluate the equation
+    //OR more than one operator is pressed, perform evaluation
+    if (e.key == 'Enter') {
+        console.log('ENTER PRESSED, EVALUATE');
 
-    calcInput = splitUp(userInput);
+    }
+    console.log(userInput);
+    console.log('split input');
+    splitInput = splitUp(userInput);
+    console.log(splitInput);
 
-    operate(calcInput);
+    if (splitInput.opCount >= 2) {
+        splitInput.firstNum = firstCal(splitInput.firstNum);
+        console.log('splitInput.firstNum is now '+splitInput.firstNum)
+        splitInput.opCount=0;
+
+        operate(splitInput);
+    }
+    else
+    operate(splitInput);
+
+
+    
+
+    //calcInput = splitUp(userInput);
+    //operate(calcInput);
 });
 
 
