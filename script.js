@@ -1,67 +1,3 @@
-let splitInput = {
-    firstNum: '',
-    secondNum: '',
-    operator: '',
-    opCount: 0
-};
-
-function add(a, b) {
-    return a + b;
-}
-
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    return a / b;
-}
-
-//takes in string('12+13'), 
-//returns an object
-/*EXAMPLE OF FUNCTION RETURN
-inputObj = {
-    firstNum: '12',
-    secondNum: '13',
-    operator: '+',
-    opCount: 1
-};
-
-*/
-function splitUp(typedInput) {
-    let inputObj = {};
-    for (i = 0; i <= typedInput.length; i++) {
-        if (typedInput[i] == '+' || typedInput[i] == '-' || typedInput[i] == '*' || typedInput[i] == '/') {
-            inputObj.opCount = inputObj.opCount + 1 || 1;
-            //^I used this method because inputObj.opCount++ did not work
-            inputObj.firstNum = typedInput.substring(0, i);
-            inputObj.secondNum = typedInput.substring(i + 1, typedInput.length);
-            inputObj.operator = typedInput[i];
-        }
-    }
-    return inputObj;
-}
-
-//triggers when opCount >=2. Sets it back to 1 while calculating the first
-//expression
-//TAKES a string as input
-//splits it up into respective objects
-//evalutes the calculation
-//reset opcount to 1 and then
-//should return the number obtained
-function firstCal(firstNum) {
-    let firstObj;
-
-    firstObj = splitUp(firstNum);
-    cal=operate(firstObj);
-    return cal;
-}
-
-
 /*
 HMTL TO-DO LIST:
 -(DONE) Add a backspace button
@@ -97,31 +33,29 @@ INPUT REDUNDANCY TO-DO LIST:
  -
 */
 
-// firstNum,secondNum,operator
-
-
-
-//the main variable manipulated by the eventlistern
 let userInput = '';
+let splitInput = {
+    firstNum: '',
+    secondNum: '',
+    operator: '',
+    twoOp: false,
+};
 
-
-
-//takes button press (input) and string(userInput) and returns nothing
-function displayToScreen(input, userInput) {
-    const screen = document.querySelector('.screen');
-
-    if (input == 'Backspace')
-        input = '';
-
-    if (input == 'c')
-        input = '';
-
-    if (input == 'Enter')
-        input = '';
-    userInput = screen.textContent = userInput + input;
-    return userInput;
+function add(a, b) {
+    return a + b;
 }
 
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    return a / b;
+}
 
 //currently, takes an object as input
 //RETURNS a number 
@@ -146,8 +80,82 @@ function operate(userInput) {
     }
 
 }
+//triggers when twoOp >=2. Sets it back to 1 while calculating the first
+//expression
+//TAKES a string as input
+//splits it up into respective objects
+//evalutes the calculation
+//reset twoOp to 1 and then
+//should return the number obtained
+function firstCal(firstNum) {
+    let firstObj;
 
+    firstObj = splitUp(firstNum);
+    cal = operate(firstObj);
+    return cal;
+}
+//takes in string('12+13'), 
+//returns an object
+/*EXAMPLE OF FUNCTION RETURN
+inputObj = {
+    firstNum: '12',
+    secondNum: '13',
+    operator: '+',
+    twoOp: 1
+};
+*/
+function splitUp(typedInput, preValue) {
+    let inputObj = {};
+    let count = 0;
+    for (i = 0; i <= typedInput.length; i++) {
+        if (typedInput[i] == '+' || typedInput[i] == '-' || typedInput[i] == '*' || typedInput[i] == '/') {
+            count++;
+            //^I used this method because inputObj.twoOp++ did not work
+            inputObj.firstNum = typedInput.substring(0, i);
+            inputObj.secondNum = typedInput.substring(i + 1, typedInput.length);
+            inputObj.operator = typedInput[i];
+        }
+    }
+    if (count > 1) {
+        inputObj.twoOp = true;
+        inputObj.firstNum=preValue;
+    }
+    return inputObj;
+}
+
+// function splitUp(typedInput) {
+//     let inputObj = {};
+//     let count=0;
+//     for (i = 0; i <= typedInput.length; i++) {
+//         if (typedInput[i] == '+' || typedInput[i] == '-' || typedInput[i] == '*' || typedInput[i] == '/') {
+//             count++;
+//             //^I used this method because inputObj.twoOp++ did not work
+//             inputObj.firstNum = typedInput.substring(0, i);
+//             inputObj.secondNum = typedInput.substring(i + 1, typedInput.length);
+//             inputObj.operator = typedInput[i];
+//         }
+//     }
+//     if (count>1)
+//     inputObj.twoOp=true;
+//     return inputObj;
+// }
+//takes button press (input) and string(userInput) and returns nothing
+function displayToScreen(input, userInput) {
+    const screen = document.querySelector('.screen');
+
+    if (input == 'Backspace')
+        input = '';
+
+    if (input == 'c')
+        input = '';
+
+    if (input == 'Enter')
+        input = '';
+    userInput = screen.textContent = userInput + input;
+    return userInput;
+}
 //NEED TO MAKE THIS ITS OWN FUNCTION FOR CLARITY LATER ON
+let calcFirstNum;
 
 addEventListener('keydown', (e) => {
     if (e.location == 3) //3 is the code for the keypad location
@@ -169,33 +177,32 @@ addEventListener('keydown', (e) => {
 
 
     console.log(userInput);
-    splitInput = splitUp(userInput);
+    splitInput = splitUp(userInput,calcFirstNum);
     console.log('split input');
     console.log(splitInput);
 
-    if (splitInput.opCount >1) {
-        console.log("splitInput.firstNum is currently "+splitInput.firstNum);
-        
-        calcFirstNum=firstCal(splitInput.firstNum);
-        splitInput.firstNum = calcFirstNum;
+    if (splitInput.twoOp == true) {
+        console.log("splitInput.firstNum is currently " + splitInput.firstNum);
 
-        console.log('splitInput.firstNum is now '+splitInput.firstNum)
+        calcFirstNum = firstCal(splitInput.firstNum);
+        // splitInput.firstNum = calcFirstNum;
+
+        console.log('splitInput.firstNum is now ' + splitInput.firstNum)
         console.log('split input after firstCal');
         console.log(splitInput);
-        
-        //splitInput.opCount--;
-        const count=1;
-        splitInput.opCount=count;
-        // splitInput.opCount = splitInput.opCount - 1 || 1;
+
+        splitInput.twoOp = false;
+
+        // splitInput.twoOp=count;
+        // splitInput.twoOp = splitInput.twoOp - 1 || 1;
         //THIS IS WHERE IT IS NOT DECREMENTING
 
         // operate(splitInput);
-    }
-    else
-    console.log(userInput+' is '+operate(splitInput));
+    } else
+        console.log(userInput + ' is ' + operate(splitInput));
 
 
-    
+
 
     //calcInput = splitUp(userInput);
     //operate(calcInput);
