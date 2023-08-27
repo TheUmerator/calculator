@@ -274,6 +274,7 @@ function displayToScreen(key, userInput) {
 
 }
 let inputString = '';
+let cal;
 let inputObj = {
     firstNum: '',
     secondNum: '',
@@ -300,8 +301,21 @@ addEventListener('keydown', (e) => {
                 inputObj.operator = inputString[i];
             }
         }
-        if (((inputObj.firstNum != '') && (inputObj.secondNum != '') && (inputObj.operator != ''))&&(e.key=='Enter')){
-            displayToScreen(e.key, operate(inputObj));
+
+        // if (((inputObj.firstNum != '') && (inputObj.secondNum != '') && (inputObj.operator != '')) &&
+        //     (e.key == 'Enter')) {
+        //     cal = operate(inputObj);
+        //     inputString=displayToScreen(e.key,cal);
+        // }
+        if ((inputObj.firstNum != '') && (inputObj.secondNum != '') && (inputObj.operator != '')) {
+            if (e.key == 'Enter') {
+                cal = operate(inputObj);
+                inputString = displayToScreen(e.key, cal);
+            }
+            if (e.key == '+' || e.key == '-' || e.key == '*' || e.key == '/') {
+                cal = operate(inputObj);
+                inputString = displayToScreen(e.key, cal);
+            }
         }
     }
 });
