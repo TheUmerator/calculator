@@ -12,7 +12,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    return Math.round(a / b * 10) / 10;
 }
 
 //INPUT: OBJECT
@@ -60,22 +60,8 @@ let inputObj = {
     secondNum: '',
     operator: '',
 };
+let decCLick = false;
 addEventListener('keydown', (e) => {
-
-    // if (e.key == 'Backspace') {
-    //     inputString = inputString.slice(0, inputString.length - 1)
-    //     inputString = displayToScreen(e.key, inputString);
-    // }
-    // if (e.key == 'c') {
-    //     inputString = '';
-    //     inputObj.firstNum='';
-    //     inputObj.secondNum='';
-    //     inputObj.operator='';
-    //     inputString = displayToScreen(e.key, inputString);
-    // }
-    // if (e.location == 3) //3 is the code for the keypad location
-    // {
-
     if (e.key === 'Enter')
         calcButtons[11].click();
     if (e.key === 'Backspace')
@@ -83,41 +69,8 @@ addEventListener('keydown', (e) => {
     if (e.key === 'c')
         calcButtons[17].click();
     for (button in calcButtons) {
-        //calcButtons[button].classList.contains('equal').click();
         if (e.key === calcButtons[button].textContent && e.location == 3)
             calcButtons[button].click();
-
-
-
-
-        // }
-
-        // e.key === '1' && calcButtons[0].click();
-
-
-
-        // inputString = displayToScreen(e.key, inputString);
-
-        // for (i = 0; i <= inputString.length; i++) {
-        //     if (inputString[i] == '+' || inputString[i] == '-' ||
-        //         inputString[i] == '*' || inputString[i] == '/') {
-        //         inputObj.firstNum = inputString.substring(0, i);
-        //         inputObj.secondNum = inputString.substring(i + 1, inputString.length);
-        //         inputObj.operator = inputString[i];
-        //     }
-        // }
-
-
-        // if ((inputObj.firstNum != '') && (inputObj.secondNum != '') && (inputObj.operator != '')) {
-        //     if (e.key == 'Enter') {
-        //         cal = operate(inputObj);
-        //         inputString = displayToScreen(e.key, cal);
-        //     }
-        //     if (e.key == '+' || e.key == '-' || e.key == '*' || e.key == '/') {
-        //         cal = operate(inputObj);
-        //         inputString = displayToScreen(e.key, cal);
-        //     }
-        // }
     }
 });
 
@@ -143,6 +96,12 @@ calcButtons.forEach(button => {
             inputString = '';
             inputString = displayToScreen(button.textContent, inputString);
         }
+        if (decCLick = false) {
+            if (button.textContent == '.') {
+                decCLick = true;
+            }
+        }
+
 
 
         inputString = displayToScreen(button.textContent, inputString);
@@ -156,17 +115,23 @@ calcButtons.forEach(button => {
             }
         }
 
-
         if ((inputObj.firstNum != '') && (inputObj.secondNum != '') && (inputObj.operator != '')) {
             console.log("BUTTON READY TO OPERATE");
-            if (button.textContent == '=') {
+            if (button.textContent == '=' || button.textContent == '+' || button.textContent == '-' || button.textContent == '*' || button.textContent == '/' &&
+                inputObj.secondNum === '') {
                 cal = operate(inputObj);
                 inputString = displayToScreen(button.textContent, cal);
             }
-            if (button.textContent == '+' || button.textContent == '-' || button.textContent == '*' || button.textContent == '/') {
-                cal = operate(inputObj);
-                inputString = displayToScreen(button.textContent, cal);
-            }
+
+            // if (button.textContent == '+' || button.textContent == '-' || button.textContent == '*' || button.textContent == '/') {
+            //     cal = operate(inputObj);
+            //     inputString = displayToScreen(button.textContent, cal);
+            // }
         }
     });
 })
+
+/*
+ERROR HANDLING TASKS
+
+*/
